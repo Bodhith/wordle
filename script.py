@@ -14,7 +14,7 @@ def getSorted(dict_, desc=True):
     return dict(sorted(dict_.items(), key=lambda item: item[1], reverse=desc))
 
 
-def getCharFreq(prevChars=[], words=[]):
+def getCharFreq(offset=0, prevChars=[], words=[]):
     charFreq = defaultdict(int)
 
     prevChars = ''.join(prevChars)
@@ -22,7 +22,7 @@ def getCharFreq(prevChars=[], words=[]):
 
     matchingList = list(filter(filter_.match, words))
 
-    pos = len(prevChars) if prevChars else 0
+    pos = offset+len(prevChars) if prevChars else offset
 
     for word in matchingList:
         char = word[pos]
@@ -51,4 +51,4 @@ if __name__=="__main__":
 
     words = list(map(lambda word: word.strip(), wordList))
     
-    print(guess())
+    print("None", getCharFreq(offset=0, prevChars=[], words=words))
