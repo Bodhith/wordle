@@ -10,6 +10,10 @@ wordList = open("sample.txt", "r")
 
 
 
+def getSorted(dict_, desc=True):
+    return dict(sorted(dict_.items(), key=lambda item: item[1], reverse=desc))
+
+
 def getCharFreq(prevChars=[], words=[]):
     charFreq = defaultdict(int)
 
@@ -18,20 +22,33 @@ def getCharFreq(prevChars=[], words=[]):
 
     matchingList = list(filter(filter_.match, words))
 
-    pos = len(prevChars)+1 if prevChars else 0
+    pos = len(prevChars) if prevChars else 0
 
     for word in matchingList:
         char = word[pos]
         charFreq[char] += 1
 
-    return dict(charFreq)
+    return getSorted(dict(charFreq))
 
+
+def guess():
+    prevChars = []
+
+    for i in range(0, 5):
+        highFreqChar = list(
+            map(
+                lambda item: item[0] if not item[0] in prevChars else None,
+                getCharFreq(prevChars=prevChars, words=words)
+            )
+        )[0]
+
+        prevChars.append(highFreqChar)
+    
+    return ''.join(prevChars)
 
 
 if __name__=="__main__":
 
     words = list(map(lambda word: word.strip(), wordList))
-
-    print(getCharFreq(words=words))
-
-    print(words)
+    
+    print(guess())
