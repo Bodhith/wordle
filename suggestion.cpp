@@ -73,15 +73,15 @@ public:
         }
     }
     
-    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+    vector<vector<string>> suggestedProducts(vector<string>& dictonary, string searchWord) {
         vector<vector<string>> ans;
         vector<string> suggestions;
         string word;
         struct Node *root = new Node(' ');
         int i, n;
         
-        for(i=0, n=products.size(); i<n; i++) {
-            addWord(products[i], root);
+        for(i=0, n=dictonary.size(); i<n; i++) {
+            addWord(dictonary[i], root);
         }
         
         word = "";
